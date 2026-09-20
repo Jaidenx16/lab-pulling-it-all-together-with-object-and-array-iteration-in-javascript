@@ -114,3 +114,124 @@ function gameObject() {
         },
     };
 }
+
+
+
+
+
+
+
+
+
+function playerStats(playerName) {
+    const game = gameObject();
+
+    // A for...in loop visits each key in an object: here, home and away.
+    for (const side in game) {
+        const players = game[side].players;
+
+        for (const name in players) {
+            if (name === playerName) {
+                // Brackets let us use a variable to look up an object's value.
+                return players[name];
+            }
+        }
+    }
+
+    // No matching player was found.
+    return undefined;
+}
+
+
+
+
+
+function numPointsScored(playerName) {
+    const stats = playerStats(playerName);
+
+    if (stats !== undefined) {
+        return stats.points;
+    }
+
+    return undefined;
+}
+
+
+
+
+
+function shoeSize(playerName) {
+    const stats = playerStats(playerName);
+
+    if (stats !== undefined) {
+        return stats.shoe;
+    }
+
+    return undefined;
+}
+
+function teamColors(teamName) {
+    const game = gameObject();
+
+    for (const side in game) {
+        const team = game[side];
+
+        if (team.teamName === teamName) {
+            return team.colors;
+        }
+    }
+
+    return undefined;
+}
+
+function teamNames() {
+    const game = gameObject();
+    const names = [];
+
+    for (const side in game) {
+        // push adds a value to the end of an array.
+        names.push(game[side].teamName);
+    }
+
+    return names;
+}
+
+   function playerNumbers(teamName) {
+    const game = gameObject();
+    const numbers = [];
+
+    for (const side in game) {
+        const team = game[side];
+
+        if (team.teamName === teamName) {
+            for (const name in team.players) {
+                numbers.push(team.players[name].number);
+            }
+        }
+    }
+
+    // This stays empty if the team was not found.
+    return numbers;
+}
+
+function bigShoeRebounds() {
+    const game = gameObject();
+    let biggestShoe = 0;
+    let rebounds;
+
+    for (const side in game) {
+        const players = game[side].players;
+
+     for (const name in players) {
+             const stats = players[name];
+
+            // Keep the rebounds belonging to the biggest shoe seen so far.
+                 if (stats.shoe > biggestShoe) {
+                     biggestShoe = stats.shoe;
+                       rebounds = stats.rebounds;
+            }
+        }
+    }
+
+    return rebounds;
+}
